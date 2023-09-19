@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.Js </title>
+</head>
+<body>
+
+    <div id="my_Applecation">
+        <h1>Hello, we are learning Vue jS with "{{ name }}"</h1>
+        <h2>{{sHello()}}</h2>
+        <h2 v-text="name"></h2>
+        <h2 v-html="ht"></h2>
+        <p v-show="name">there is a name : {{name}}</p>
+        <form action="">
+            <input type="text" :placeholder="name">
+        </form>
+        <button @click="cohay"></button>
+        <ul>
+            <li v-for="(nu , i) in num">{{nu + " / " + (i+1)}}</li>
+        </ul>
+        <form action="">
+            <input type="text" :value="name">
+            <p>{{name}}</p>
+            <input type="text" v-model="name">
+        </form>
+        <app-count :name="name" :day="date.day"></app-count>
+        <h2>now we are trying the computed::: {{calcA}}</h2>
+
+        <!-- watch -->
+        <input type="text" v-model="ho">
+        <label for="">time in houre</label>
+        <input type="text" v-model="mi">
+        <label for="">time in minute</label>
+
+    </div>
+
+
+    <!--  -->
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.component('app-count',{
+            data : function (){
+                return {
+                    na: "ali",
+                    count: 0,
+                }
+            },
+            props:['name','day'],
+            template: '<h2 @click="count++">the name is {{na}} an we clicked {{count}} times, the secound name is : {{name}}, the date is: {{day}}</h2>'
+        })
+        //end of component
+
+
+        //start vue
+        var vm = new Vue({
+        el: '#my_Applecation',
+        data: {
+            name : 'Abd Al-kareem',
+            num:["aa","bb","cc"],
+            ht: "<div>abd in div</div>",
+            ho:0,
+            mi:0,
+            date:{
+                day:22,
+                monyh:2,
+            }
+        },
+        //start methodes
+        methods: {
+          sHello : function(){
+            return "hello";
+          },
+          cohay : function(){
+            console.log("@ event");
+          }
+        },
+        // 
+        computed:{
+            calcA: function(){
+                console.log("runned");
+                return `computed name ${this.name}`
+            }
+        },
+        // 
+        watch:{
+            ho: function(v){
+                 this.mi = v * 60;
+            },
+            mi: function(v){
+                 this.ho = v / 60;
+
+            }
+        }
+
+        })
+
+    </script>
+</body>
+</html>
